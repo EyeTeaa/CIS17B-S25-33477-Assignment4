@@ -1,20 +1,62 @@
-// Lesson 4 Assignment.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <unordered_map>
+#include <map>
+#include <memory>
+#include <stdexcept>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+class DuplicateItemException : public std::runtime_error {
+public:
+    DuplicateItemException(const std::string& msg) : std::runtime_error(msg) {}
+};
+
+class ItemNotFoundException : public std::runtime_error {
+public:
+    ItemNotFoundException(const std::string& msg) : std::runtime_error(msg) {}
+};
+
+class StoredItem {
+private:
+    std::string id;
+    std::string description;
+    std::string location;
+
+public:
+    StoredItem(std::string id, std::string desc, std::string loc)
+        : id(id), description(desc), location(loc) {
+    }
+
+    std::string getId() const { return id; }
+    std::string getDescription() const { return description; }
+    std::string getLocation() const { return location; }
+};
+
+class StorageManager {
+private:
+    std::unordered_map<std::string, std::shared_ptr<StoredItem>> itemById;
+    std::map<std::string, std::shared_ptr<StoredItem>> itemByDescription;
+
+public:
+    void addItem(const std::shared_ptr<StoredItem>& item) {
+        // TODO: Add item to both maps, throw if ID already exists
+    }
+
+    std::shared_ptr<StoredItem> findById(const std::string& id) const {
+        // TODO: Return item if found or throw ItemNotFoundException
+        return nullptr;
+    }
+
+    void removeItem(const std::string& id) {
+        // TODO: Remove from both maps, throw if not found
+    }
+
+    void listItemsByDescription() const {
+        // TODO: Iterate over itemByDescription and print info
+    }
+};
+
+void testDuplicateAddition();
+void testItemNotFound();
+
+int main() {
+    // TODO: Create StorageManager and test functionality
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
